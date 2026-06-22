@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>中彩网 · 专题介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #f4f8fb;
+            color: #1a2b3c;
+            line-height: 1.7;
+            padding: 0 16px;
+        }
+
+        .wrapper {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 28px 0 50px;
+        }
+
+        /* Hero 区域 — 杂志横幅 */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, #0b2d3f 0%, #1a5c6e 60%, #2a7f8a 100%);
+            border-radius: 28px;
+            padding: 48px 32px 52px;
+            margin-bottom: 40px;
+            color: #e5f4f7;
+            box-shadow: 0 12px 28px -8px rgba(22, 78, 99, 0.25);
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(72, 187, 180, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 span {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 0 8px;
+            border-radius: 6px;
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            margin-top: 1rem;
+            max-width: 70%;
+            color: #cde8ed;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        .hero .badge {
+            display: inline-block;
+            margin-top: 1.8rem;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(2px);
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #d7eff3;
+        }
+
+        /* 三段式卡片网格 */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 28px 24px 30px;
+            box-shadow: 0 4px 16px rgba(0, 35, 45, 0.04);
+            border: 1px solid #e3edf0;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 30px -6px rgba(24, 94, 102, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #0f4760;
+            letter-spacing: 0.3px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h3 .icon {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            background: #c5e4e9;
+            border-radius: 30px;
+            text-align: center;
+            line-height: 28px;
+            font-size: 1rem;
+            color: #0e4a5a;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #2b4050;
+            margin-bottom: 6px;
+        }
+
+        .card .highlight {
+            background: #eef7f9;
+            padding: 8px 14px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.8rem;
+            color: #155a69;
+            margin-top: 12px;
+            border-left: 3px solid #3599a5;
+        }
+
+        /* 背景说明区块 — 像杂志侧记 */
+        .context-block {
+            background: #e3f0f3;
+            border-radius: 24px;
+            padding: 32px 28px;
+            margin-bottom: 30px;
+            border-left: 5px solid #297e8a;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+        }
+
+        .context-block h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #0a3847;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .context-block p {
+            font-size: 0.98rem;
+            max-width: 85%;
+            color: #1f4453;
+            line-height: 1.8;
+        }
+
+        .context-block p a {
+            color: #0c6b7a;
+            text-decoration: none;
+            font-weight: 450;
+            border-bottom: 1.5px dotted #3599a5;
+            transition: border 0.15s;
+        }
+
+        .context-block p a:hover {
+            border-bottom-color: #1a4c57;
+        }
+
+        /* 特点简述 + 提示混合区 */
+        .feature-tip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .feature-box {
+            flex: 2 1 280px;
+            background: white;
+            border-radius: 24px;
+            padding: 26px 24px;
+            box-shadow: 0 2px 10px rgba(0, 40, 50, 0.03);
+            border: 1px solid #dcebef;
+        }
+
+        .feature-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-box li {
+            padding: 6px 0;
+            font-size: 0.95rem;
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+            border-bottom: 1px solid #ecf4f6;
+        }
+
+        .feature-box li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-box li::before {
+            content: "▹";
+            color: #3b9faa;
+            font-size: 1.1rem;
+        }
+
+        .tip-card {
+            flex: 1 1 200px;
+            background: #ddedf1;
+            border-radius: 24px;
+            padding: 24px 22px;
+            border: 1px solid #b8d6dd;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tip-card p {
+            font-size: 0.9rem;
+            color: #174e5c;
+            margin-bottom: 6px;
+        }
+
+        .tip-card strong {
+            font-weight: 500;
+            color: #0a3b48;
+        }
+
+        .tip-card .small-note {
+            font-size: 0.8rem;
+            color: #3a6874;
+            margin-top: 6px;
+        }
+
+        /* 页尾访问提示 */
+        .footer-note {
+            margin-top: 40px;
+            padding: 28px 24px;
+            background: #dae9ed;
+            border-radius: 40px;
+            text-align: center;
+            border: 1px solid #bed7de;
+        }
+
+        .footer-note p {
+            font-size: 1rem;
+            color: #134753;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .footer-note a {
+            color: #065467;
+            text-decoration: none;
+            font-weight: 500;
+            background: transparent;
+            padding: 2px 6px;
+            border-radius: 20px;
+            transition: background 0.15s, color 0.15s;
+            border-bottom: 1.5px solid #358494;
+        }
+
+        .footer-note a:hover {
+            background: #b6d7df;
+            color: #04323f;
+            border-bottom-color: #04323f;
+        }
+
+        /* 移动端适应 */
+        @media (max-width: 640px) {
+            .hero {
+                padding: 36px 20px 40px;
+                border-radius: 20px;
+            }
+
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero p {
+                max-width: 100%;
+                font-size: 0.95rem;
+            }
+
+            .context-block p {
+                max-width: 100%;
+            }
+
+            .cards-grid {
+                gap: 16px;
+            }
+
+            .card {
+                padding: 22px 18px;
+            }
+
+            .feature-tip {
+                flex-direction: column;
+            }
+
+            .footer-note {
+                padding: 22px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .hero .badge {
+                font-size: 0.75rem;
+                padding: 4px 14px;
+            }
+
+            .card h3 {
+                font-size: 1.05rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!-- 杂志首页横幅 -->
+    <header class="hero">
+        <h1><span>中彩网</span> · 信息门户</h1>
+        <p>一个聚合综合资讯与索引服务的站点，帮助浏览者快速定位自己需要的分类与内容。</p>
+        <div class="badge">✦ 索引 · 导航 · 分类指引</div>
+    </header>
+
+    <!-- 背景说明：为什么会有这个站点，用户如何理解它的用途 -->
+    <div class="context-block">
+        <h2>从识别到定位：一个索引站点的角色</h2>
+        <p>
+            面对网络上分散的信息，很多人需要一个稳定的、结构化的起点。<a href="https://portal-index-zhcw.com">中彩网</a>正是基于这样的考虑——它并非内容的生产者，而是一个经过梳理的索引入口。网站聚合了多类别的链接与导航，让你在浏览时不必在标签页间反复切换。它的设计初衷是让访问者更快找到自己关心的领域，无论是行业动态、资源目录还是日常参考，都能在这里找到一个清晰的落脚点。
+        </p>
+    </div>
+
+    <!-- 三段自然介绍（卡片网格） -->
+    <div class="cards-grid">
+        <article class="card">
+            <h3><span class="icon">◈</span> 分类聚合</h3>
+            <p>站内将相关内容归纳为若干主要板块，每个板块下汇集一批经过筛选的链接。访问者可以通过分类标题快速判断某个板块是否符合自己的信息需求，而不需要逐一试探。</p>
+            <div class="highlight">适合需要按领域浏览的用户</div>
+        </article>
+        <article class="card">
+            <h3><span class="icon">◈</span> 清单式索引</h3>
+            <p>每个分类条目后附带简要说明，帮助浏览者在点击之前就了解链接的大致内容。这种清单式的结构降低了盲目跳转的可能性，也让查找过程更有效率。</p>
+            <div class="highlight">减少来回对比的时间成本</div>
+        </article>
+        <article class="card">
+            <h3><span class="icon">◈</span> 轻量界面</h3>
+            <p>没有冗余的广告弹窗或复杂交互，页面以文字和信息层级为主。让注意力集中在索引本身，而不是被视觉元素干扰。这也是不少用户持续使用的原因之一。</p>
+            <div class="highlight">干净、直接、实用</div>
+        </article>
+    </div>
+
+    <!-- 特点 + 提示混合区块 — 类似FAQ摘要 -->
+    <div class="feature-tip">
+        <div class="feature-box">
+            <ul>
+                <li>内容涵盖多个常见领域，定期更新链接的有效性</li>
+                <li>每个分类标题即锚点，支持快速定位</li>
+                <li>不收集隐私信息，只提供公开索引服务</li>
+                <li>移动端与桌面端布局自适应，无缩放障碍</li>
+            </ul>
+        </div>
+        <div class="tip-card">
+            <p><strong>💡 使用提示</strong></p>
+            <p>将首页设为书签，可作为日常浏览的起始页。分类名称就是最好的检索词。</p>
+            <div class="small-note">—— 索引站点的价值在于结构，而非信息本身。</div>
+        </div>
+    </div>
+
+    <!-- 页尾访问提示（链接自然嵌入句子） -->
+    <footer class="footer-note">
+        <p>如果你正在寻找一个结构清晰的索引起点，不妨将 <a href="https://portal-index-zhcw.com">中彩网</a> 加入书签。它不会代替搜索引擎，但会提供一个更安静、更有序的浏览入口。</p>
+    </footer>
+</div>
+</body>
+</html>
